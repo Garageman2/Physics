@@ -1,5 +1,7 @@
 import warnings
 from Math.Vector2 import Vector2 as Vec2
+import math
+
 
 class Body:
     """Information About a Physics Object"""
@@ -35,16 +37,19 @@ class Body:
         warnings.warn("Only for Static Calculation, to be deprecated", DeprecationWarning)
         return self.Velocity + (self.Acceleration * time)
 
-    def _solve_forces(self):
-        sigma_force = Vec2.from_components(0,0)
+    def _solve_forces(self, angle: float = 0.0):
+
+        # TODO: Test implementation of incline
+
+        sigma_force = Vec2.from_components(0.0, 0.0)
         for force in self.Forces:
             if isinstance(force, Vec2):
-                sigma_force.X += force.X
-                sigma_force.Y += force.Y
+                sigma_force.X += (force.length() * math.sin(math.radians(angle)))
+                sigma_force.Y += (force.length() * math.cos(math.radians(angle)))
         self.Acceleration = sigma_force / self.Mass
 
     def apply_gravity(self):
-        #this does not account for friction, or an incline
-        #TODO: consider incline and friction
         self.Forces.append(Vec2.from_components(0.0, self.Mass * -9.81))
-        self._solve_forces()
+        self._solve_forces(90)
+
+        # TODO: Make angle of Force accessible, maybe a struct passing in forces
