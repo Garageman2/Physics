@@ -34,14 +34,20 @@ class Square(Shape):
             if line.angle() % 360 > 180:
                 # bottom half
                 nearest.Y = nearest.Y * -1
-            nearest.X = math.tan(math.radians(line.angle())) / nearest.Y
+            if line.X == 0:
+                nearest.X = 0.0
+            else:
+                nearest.X = round(math.tan(math.radians(line.angle())),5) / nearest.Y
         elif abs(line.X) > abs(line.Y):
             # hits left or right
             nearest = Vec2.from_components(self.size / 2, 0)
             if 90 < (line.angle() % 360) < 270:
                 # left half
                 nearest.X = nearest.X * -1
-            nearest.Y = math.tan(math.radians(line.angle())) * nearest.X
+            if line.Y == 0:
+                nearest.Y = 0.0
+            else:
+                nearest.Y = round(math.tan(math.radians(line.angle())), 5) * nearest.X
         else:
             nearest = Vec2.from_components(self.size / 2, self.size / 2)
             if line.angle() % 360 > 180:
@@ -51,6 +57,8 @@ class Square(Shape):
                 # left half
                 nearest.X = nearest.X * -1
         # now translate from local
+
+        print("Daniel")
         return nearest + self.center
 
 
