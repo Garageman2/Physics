@@ -47,19 +47,22 @@ class Vector2:
         return int(self.length())
 
     def __mul__(self, other):
-         return Vector2.from_components((self.X * other), (self.Y * other))
+        return Vector2.from_components((self.X * other), (self.Y * other))
 
     def __truediv__(self, other):
-         try:
-             return Vector2.from_components((self.X / other), (self.Y / other))
-         except ZeroDivisionError:
-             return self
+        try:
+            return Vector2.from_components((self.X / other), (self.Y / other))
+        except ZeroDivisionError:
+            return self
 
     def __str__(self):
         return "X: " + str(self.X) + " Y: " + str(self.Y)
 
     def length(self):
         return math.sqrt(math.pow(self.X, 2) + math.pow(self.Y, 2))
+
+    def length_squared(self):
+        return math.pow(self.X, 2) + math.pow(self.Y, 2)
 
     def angle(self):
         return math.degrees(math.atan2(self.Y, self.X))
