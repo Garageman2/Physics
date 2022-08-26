@@ -3,6 +3,7 @@ from Math.Vector2 import Vector2 as Vec2
 
 
 class Shape:
+    """A Generic Collider that can detect other colliders"""
     center: Vec2 = None
     size: float = 1.0
 
@@ -19,13 +20,9 @@ class Shape:
         test: float = self.center.distance(other.find_nearest(self))
         return test <= limit
 
-    def process(self, position: Vec2):
-        # TODO: to be called on every physics step
-        pass
 
-
-# noinspection PyTypeChecker
 class Square(Shape):
+    """A Square Collider Shape"""
 
     def find_nearest(self, other: Shape) -> Vec2:
         line = super(Square, self).find_nearest(other)
@@ -67,6 +64,7 @@ class Square(Shape):
 
 
 class Circle(Shape):
+    """A Circular Collider Shape"""
 
     def find_nearest(self, other: Shape) -> Vec2:
         line = super(Circle, self).find_nearest(other)

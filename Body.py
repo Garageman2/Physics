@@ -13,9 +13,6 @@ class Body:
     Collider: Shape = None
     Forces = []
 
-    # TODO: look at lambdas or ways of passing in a function into Velocity/Acc/Pos etc.
-    # TODO: Utilities to read and start calculating position
-
     def __init__(self, position: Vec2 = Vec2.from_components(0, 0), velocity: Vec2 = Vec2.from_components(0, 0),
                  mass: float = 1.0, collider: object = Circle, size: float = 1.0, *forces: Vec2) :
 
@@ -28,6 +25,13 @@ class Body:
         for force in forces:
             self.Forces.append(force)
         self._solve_forces()
+
+    def process_physics(self, delta_time: float):
+        self._solve_forces()
+        print("Acceleration " , self.Acceleration)
+        self.Velocity += (self.Acceleration * delta_time)
+        self.Position += (self.Velocity* delta_time)
+        self.Collider.center = self.Position
 
     # TODO: Replace Evaluate functions with ones that update and accumulate rather than evaluate
 
@@ -50,13 +54,13 @@ class Body:
         sigma_force = Vec2.from_components(0.0, 0.0)
         for force in self.Forces:
             if isinstance(force, Vec2):
-                sigma_force.X += (force.length() * math.sin(math.radians(angle)))
-                sigma_force.Y += (force.length() * math.cos(math.radians(angle)))
+                sigma_force.X += force.X
+                sigma_force.Y += force.Y
         self.Acceleration = sigma_force / self.Mass
 
     def apply_gravity(self):
         self.Forces.append(Vec2.from_components(0.0, self.Mass * -9.81))
-        self._solve_forces(90)
+        self._solve_forces()
 
         # TODO: Make angle of Force accessible, maybe a struct passing in forces
     def test_collision(self, other: "Body") -> bool:
