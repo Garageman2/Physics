@@ -1,6 +1,7 @@
 import warnings
-from Math.Vector2 import Vector2 as Vec2
 import math
+from Math.Vector2 import Vector2 as Vec2
+from Shapes import *
 
 
 class Body:
@@ -9,13 +10,15 @@ class Body:
     Velocity: Vec2 = None
     Acceleration: Vec2 = None
     Mass: float = None
+    Collider: Shape = None
     Forces = []
 
     # TODO: look at lambdas or ways of passing in a function into Velocity/Acc/Pos etc.
     # TODO: Utilities to read and start calculating position
 
     def __init__(self, position: Vec2 = Vec2.from_components(0, 0), velocity: Vec2 = Vec2.from_components(0, 0),
-                 mass: float = 1.0, *forces: Vec2):
+                 mass: float = 1.0, collider=Circle, size: float = 1.0, *forces: Vec2):
+        self.Collider = collider(position, abs(size))
         self.Position = position
         self.Velocity = velocity
         self.Mass = mass
@@ -25,11 +28,11 @@ class Body:
 
     # TODO: Replace Evaluate functions with ones that update and accumulate rather than evaluate
 
-    def evaluate_position(self, time: float = 0.0):
+    def evaluate_position(self, time: float = 0.0) -> Vec2:
         warnings.warn("Only for Static Calculation, to be deprecated", DeprecationWarning)
         return self.Position + (self.Velocity * time) + (self.Acceleration * time * time * .5)
 
-    def evaluate_displacement(self, time: float = 0.0):
+    def evaluate_displacement(self, time: float = 0.0) -> Vec2:
         warnings.warn("Only for Static Calculation, to be deprecated", DeprecationWarning)
         return self.evaluate_position(time) - self.Position
 

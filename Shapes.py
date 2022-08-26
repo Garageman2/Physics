@@ -1,9 +1,6 @@
 import math
-
 from Math.Vector2 import Vector2 as Vec2
 
-
-# TODO: Make each regular shape a child
 
 class Shape:
     center: Vec2 = None
@@ -58,7 +55,6 @@ class Square(Shape):
                 nearest.X = nearest.X * -1
         # now translate from local
 
-        print("Daniel")
         return nearest + self.center
 
 

@@ -1,6 +1,4 @@
 from Math.Vector2 import Vector2 as Vec2
-from Body import Body
-
 from Shapes import *
 
 
