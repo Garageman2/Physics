@@ -59,3 +59,5 @@ class Body:
         self._solve_forces(90)
 
         # TODO: Make angle of Force accessible, maybe a struct passing in forces
+    def test_collision(self, other: "Body") -> bool:
+        return self.Collider.hit_result(other.Collider)
