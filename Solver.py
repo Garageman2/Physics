@@ -1,9 +1,10 @@
-from Math.Vector2 import Vector2 as Vec2
-from Shapes import *
+from Body import *
 
 
 def main():
-    item = Square(Vec2.from_components(10, 0), 10)
-    item2 = Circle(Vec2.from_components(0, 0), 10)
-    print(item.find_nearest(item2))
+    CircBot = Body()
+    CircTop = Body(Vec2.from_components(2, 0))
+    print(CircTop.Collider.hit_result(CircBot.Collider,CircTop.Collider.find_nearest(CircBot.Collider),CircBot.Collider.
+                                find_nearest(CircTop.Collider)))
+
     pass

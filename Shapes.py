@@ -14,10 +14,17 @@ class Shape:
         line = Vec2.from_components((other.center.X - self.center.X), (other.center.Y - self.center.Y))
         return line
 
+    def hit_result(self, other: "Shape", own_near: Vec2, other_near: Vec2) -> bool:
+        limit: float = self.center.distance(own_near)
+        test: float = self.center.distance(other_near)
+        return test <= limit
+
     def process(self, position: Vec2):
+        # TODO: to be called on every physics step
         pass
 
 
+# noinspection PyTypeChecker
 class Square(Shape):
 
     def find_nearest(self, other: Shape) -> Vec2:
@@ -34,7 +41,7 @@ class Square(Shape):
             if line.X == 0:
                 nearest.X = 0.0
             else:
-                nearest.X = round(math.tan(math.radians(line.angle())),5) / nearest.Y
+                nearest.X = round(math.tan(math.radians(line.angle())), 5) / nearest.Y
         elif abs(line.X) > abs(line.Y):
             # hits left or right
             nearest = Vec2.from_components(self.size / 2, 0)

@@ -17,7 +17,10 @@ class Body:
     # TODO: Utilities to read and start calculating position
 
     def __init__(self, position: Vec2 = Vec2.from_components(0, 0), velocity: Vec2 = Vec2.from_components(0, 0),
-                 mass: float = 1.0, collider=Circle, size: float = 1.0, *forces: Vec2):
+                 mass: float = 1.0, collider: object = Circle, size: float = 1.0, *forces: Vec2) :
+
+        if not issubclass(collider,Shape):
+            raise TypeError
         self.Collider = collider(position, abs(size))
         self.Position = position
         self.Velocity = velocity

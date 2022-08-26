@@ -64,6 +64,9 @@ class Vector2:
     def length_squared(self):
         return math.pow(self.X, 2) + math.pow(self.Y, 2)
 
+    def distance(self, other: "Vector2") -> float:
+        return (other-self).length()
+
     def angle(self):
         return math.degrees(math.atan2(self.Y, self.X))
 
