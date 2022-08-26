@@ -14,9 +14,9 @@ class Shape:
         line = Vec2.from_components((other.center.X - self.center.X), (other.center.Y - self.center.Y))
         return line
 
-    def hit_result(self, other: "Shape", own_near: Vec2, other_near: Vec2) -> bool:
-        limit: float = self.center.distance(own_near)
-        test: float = self.center.distance(other_near)
+    def hit_result(self, other: "Shape") -> bool:
+        limit: float = self.center.distance(self.find_nearest(other))
+        test: float = self.center.distance(other.find_nearest(self))
         return test <= limit
 
     def process(self, position: Vec2):
@@ -28,9 +28,7 @@ class Shape:
 class Square(Shape):
 
     def find_nearest(self, other: Shape) -> Vec2:
-        other_loc = other.center
         line = super(Square, self).find_nearest(other)
-        nearest: Vec2 = None
 
         if abs(line.Y) > abs(line.X):
             # hits top or bottom
@@ -71,7 +69,6 @@ class Square(Shape):
 class Circle(Shape):
 
     def find_nearest(self, other: Shape) -> Vec2:
-        other_loc = other.center
         line = super(Circle, self).find_nearest(other)
         nearest: Vec2 = Vec2.from_length(self.size, line.angle())
         return nearest + self.center
