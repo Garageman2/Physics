@@ -8,7 +8,7 @@ def main():
     #maybe a struct with a flag for persistent or not
     world = Scene()
     world.add_body("stationary", enable_gravity=False)
-    world.add_body("Moving", Vec2.from_components(0, 10), velocity=Vec2.from_components(10.0, 0), size=10,
+    world.add_body("Moving", Vec2(0, 10), velocity=Vec2(10.0, 0), size=10,
                    enable_gravity=False)
     world.run(3)
 

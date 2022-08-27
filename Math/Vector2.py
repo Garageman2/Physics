@@ -11,10 +11,6 @@ class Vector2:
         self.Y = y
 
     @classmethod
-    def from_components(cls, x: float, y: float):
-        return Vector2(x,y)
-
-    @classmethod
     def from_length(cls, length: float, angle: float, precision: int = 3):
         X = round(length * math.cos(math.radians(angle)), precision)
         Y = round(length * math.sin(math.radians(angle)), precision)
@@ -26,15 +22,15 @@ class Vector2:
 
     def __add__(self, other):
         if isinstance(other, Vector2):
-            return Vector2.from_components((self.X + other.X), (self.Y + other.Y))
+            return Vector2((self.X + other.X), (self.Y + other.Y))
         else:
-            return Vector2.from_components((self.X + other), (self.Y + other))
+            return Vector2((self.X + other), (self.Y + other))
 
     def __sub__(self, other):
         if isinstance(other, Vector2):
-            return Vector2.from_components((self.X - other.X), (self.Y - other.Y))
+            return Vector2((self.X - other.X), (self.Y - other.Y))
         else:
-            return Vector2.from_components((self.X - other), (self.Y - other))
+            return Vector2((self.X - other), (self.Y - other))
 
     def __abs__(self):
         return self.length()
@@ -43,11 +39,11 @@ class Vector2:
         return int(self.length())
 
     def __mul__(self, other):
-        return Vector2.from_components((self.X * other), (self.Y * other))
+        return Vector2((self.X * other), (self.Y * other))
 
     def __truediv__(self, other):
         try:
-            return Vector2.from_components((self.X / other), (self.Y / other))
+            return Vector2((self.X / other), (self.Y / other))
         except ZeroDivisionError:
             return self
 
@@ -55,7 +51,7 @@ class Vector2:
         return "X: " + str(self.X) + " Y: " + str(self.Y)
 
     def __round__(self, n=None):
-        return Vector2.from_components(round(self.X, n), round(self.Y, n))
+        return Vector2(round(self.X, n), round(self.Y, n))
 
     def length(self):
         return math.sqrt(math.pow(self.X, 2) + math.pow(self.Y, 2))

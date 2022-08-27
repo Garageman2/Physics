@@ -9,7 +9,7 @@ class Scene:
     def __init__(self):
         self.time = 0.0
 
-    def add_body(self, name: str, position: Vec2 = Vec2.from_components(0, 0), velocity: Vec2 = Vec2.from_components(0, 0),
+    def add_body(self, name: str, position: Vec2 = Vec2(0, 0), velocity: Vec2 = Vec2(0, 0),
                  mass: float = 1.0, collider: object = Circle, size: float = 1.0, enable_gravity: bool = False, *forces: Vec2):
         """ Creates a new body in the scene and handles it """
         new_body = Body(name, position, velocity, mass, collider, size, forces)

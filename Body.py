@@ -12,7 +12,7 @@ class Body:
     Collider: Shape = None
     Forces = []
 
-    def __init__(self, name: str, position: Vec2 = Vec2.from_components(0, 0), velocity: Vec2 = Vec2.from_components(0, 0),
+    def __init__(self, name: str, position: Vec2 = Vec2(0, 0), velocity: Vec2 = Vec2(0, 0),
                  mass: float = 1.0, collider_shape: object = Circle, size: float = 1.0, *forces: Vec2) :
         self.Forces = []
 
@@ -39,7 +39,7 @@ class Body:
 
         # TODO: Test implementation of incline
 
-        sigma_force = Vec2.from_components(0.0, 0.0)
+        sigma_force = Vec2(0.0, 0.0)
         for force in self.Forces:
             if isinstance(force, Vec2):
                 sigma_force.X += force.X
@@ -47,7 +47,7 @@ class Body:
         self.Acceleration = sigma_force / self.Mass
 
     def apply_gravity(self):
-        self.Forces.append(Vec2.from_components(0.0, self.Mass * -9.81))
+        self.Forces.append(Vec2(0.0, self.Mass * -9.81))
         self._solve_forces()
 
         # TODO: Make angle of Force accessible, maybe a struct passing in forces
