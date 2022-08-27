@@ -21,7 +21,6 @@ class Vector2:
         result: Vector2 = Vector2()
         result.X = round(length * math.cos(math.radians(angle)), precision)
         result.Y = round(length * math.sin(math.radians(angle)), precision)
-        print("Potential error in calculation here, maybe rounding?")
         return result
 
     @classmethod
@@ -57,6 +56,9 @@ class Vector2:
 
     def __str__(self):
         return "X: " + str(self.X) + " Y: " + str(self.Y)
+
+    def __round__(self, n=None):
+        return Vector2.from_components(round(self.X, n), round(self.Y, n))
 
     def length(self):
         return math.sqrt(math.pow(self.X, 2) + math.pow(self.Y, 2))
