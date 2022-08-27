@@ -6,22 +6,19 @@ class Vector2:
     X: float = 0.0
     Y: float = 0.0
 
-    def __init__(self):
-        pass
+    def __init__(self, x: int = 0, y: int = 0):
+        self.X = x
+        self.Y = y
 
     @classmethod
     def from_components(cls, x: float, y: float):
-        result: Vector2 = Vector2()
-        result.X = x
-        result.Y = y
-        return result
+        return Vector2(x,y)
 
     @classmethod
     def from_length(cls, length: float, angle: float, precision: int = 3):
-        result: Vector2 = Vector2()
-        result.X = round(length * math.cos(math.radians(angle)), precision)
-        result.Y = round(length * math.sin(math.radians(angle)), precision)
-        return result
+        X = round(length * math.cos(math.radians(angle)), precision)
+        Y = round(length * math.sin(math.radians(angle)), precision)
+        return Vector2(X,Y)
 
     @classmethod
     def unit_vector(cls, angle: float):
